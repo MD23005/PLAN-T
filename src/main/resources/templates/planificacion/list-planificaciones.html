@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+</head>
+<body>
+    <div th:replace="fragments/header :: nav"></div>
+    
+    <div class="container">
+        <h1 class="my-4">Planificaciones Semanales</h1>
+        
+        <div class="d-flex justify-content-between mb-3">
+            <a href="/planificaciones/nuevo" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Nueva Planificación
+            </a>
+            
+            <div>
+                <a href="/planificaciones/exportar-pdf" class="btn btn-primary me-2" target="_blank">
+                    <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                </a>
+                
+                <button onclick="window.print()" class="btn btn-secondary">
+                    <i class="bi bi-printer"></i> Imprimir
+                </button>
+            </div>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Grupo</th>
+                    <th>Tema</th>
+                    <th>Modalidad</th>
+                    <th>Fecha/Hora</th>
+                    <th>Tutor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="planificacion : ${planificaciones}">
+                    <td th:text="${planificacion.id}"></td>
+                    <td th:text="${planificacion.grupo}"></td>
+                    <td th:text="${planificacion.tema}"></td>
+                    <td th:text="${planificacion.modalidad}"></td>
+                    <td th:text="${planificacion.fechaHora}"></td>
+                    <td th:text="${planificacion.tutor.nombre}"></td>
+                    <td>
+                        <a th:href="@{/planificaciones/editar/{id}(id=${planificacion.id})}" class="btn btn-primary btn-sm">Editar</a>
+                        <a th:href="@{/planificaciones/eliminar/{id}(id=${planificacion.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
+  
