@@ -8,10 +8,6 @@
     <div class="container">
         <h1 class="my-4" th:text="${tutor.id != null} ? 'Editar Tutor' : 'Nuevo Tutor'"></h1>
         
-<<<<<<< HEAD
-=======
-        <!-- Formulario corregido con th:object y método POST -->
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
         <form th:action="@{/tutores/guardar}" th:object="${tutor}" method="post">
             <input type="hidden" th:field="*{id}">
             

@@ -39,17 +39,12 @@
             <tbody>
                 <tr th:each="planificacion : ${planificaciones}">
                     <td th:text="${planificacion.id}"></td>
-<<<<<<< HEAD
                     <td th:text="${planificacion.grupo.nombre}"></td>
-=======
-                    <td th:text="${planificacion.grupo}"></td>
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
                     <td th:text="${planificacion.tema}"></td>
                     <td th:text="${planificacion.modalidad}"></td>
                     <td th:text="${planificacion.fechaHora}"></td>
                     <td th:text="${planificacion.tutor.nombre}"></td>
                     <td>
-<<<<<<< HEAD
                         <a th:href="@{/planificaciones/editar/{id}(id=${planificacion.id})}" 
                            class="btn btn-primary btn-sm">
                            Editar
@@ -59,10 +54,6 @@
                            onclick="return confirm('¿Estás seguro de eliminar esta planificación?')">
                            Eliminar
                         </a>
-=======
-                        <a th:href="@{/planificaciones/editar/{id}(id=${planificacion.id})}" class="btn btn-primary btn-sm">Editar</a>
-                        <a th:href="@{/planificaciones/eliminar/{id}(id=${planificacion.id})}" class="btn btn-danger btn-sm">Eliminar</a>
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
                     </td>
                 </tr>
             </tbody>

@@ -23,11 +23,7 @@ public class PDFGeneratorService {
             PdfWriter.getInstance(document, out);
             document.open();
 
-<<<<<<< HEAD
             // Titulo del documento
-=======
-            // Título del documento
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
             Paragraph title = new Paragraph("Planificaciones Semanales de Tutorías", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
@@ -54,11 +50,7 @@ public class PDFGeneratorService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             
             for (Planificacion planificacion : planificaciones) {
-<<<<<<< HEAD
                 table.addCell(planificacion.getGrupo().getNombre());
-=======
-                table.addCell(planificacion.getGrupo());
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
                 table.addCell(planificacion.getTema());
                 table.addCell(planificacion.getModalidad());
                 table.addCell(planificacion.getFechaHora().format(formatter));

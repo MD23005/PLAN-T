@@ -13,15 +13,11 @@
             
             <div class="mb-3">
                 <label for="grupo" class="form-label">Grupo</label>
-<<<<<<< HEAD
                 <select class="form-select" id="grupo" th:field="*{grupo}" required>
                     <option th:each="grupo : ${grupos}" 
                             th:value="${grupo.id}" 
                             th:text="${grupo.nombre}"></option>
                 </select>
-=======
-                <input type="text" class="form-control" id="grupo" th:field="*{grupo}" required>
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
             </div>
             
             <div class="mb-3">

@@ -62,11 +62,7 @@ public class TutorController {
             tutorRepository.deleteById(id);
             redirectAttributes.addFlashAttribute("success", "Tutor eliminado exitosamente");
         } catch (Exception e) {
-<<<<<<< HEAD
             redirectAttributes.addFlashAttribute("error", "No se puede eliminar el tutor porque está siendo utilizado");
-=======
-            redirectAttributes.addFlashAttribute("error", "Error al eliminar el tutor");
->>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
         }
         return "redirect:/tutores";
     }
