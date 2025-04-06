@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+<<<<<<< HEAD
   java_app:
     build: .
     ports:
@@ -39,3 +40,25 @@ volumes:
 networks:
   java_network:
 
+=======
+
+  java_app4:
+    container_name: java_app4
+    image: plant-java:1.0
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - java_db4
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://java_db4:5432/postgres
+  java_db4:
+    container_name: java_db4
+    image: postgres:latest
+    ports:
+      - 5432:5432                                                 
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres     
+>>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630

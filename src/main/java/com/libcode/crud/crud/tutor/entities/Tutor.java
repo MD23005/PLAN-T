@@ -16,7 +16,11 @@ public class Tutor {
     private String nombre;
     private String email;
     
+<<<<<<< HEAD
     // Constructores
+=======
+    // Constructores, getters y setters
+>>>>>>> 47f108a0e0c4871b83237291b9e2c81477904630
     public Tutor() {}
     
     public Tutor(String nombre, String email) {
