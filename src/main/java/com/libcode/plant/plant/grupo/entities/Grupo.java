@@ -1,7 +1,7 @@
-package com.libcode.crud.crud.grupo.entities;
+package com.libcode.plant.plant.grupo.entities;
 
 import jakarta.persistence.*;
-import com.libcode.crud.crud.tutor.entities.Tutor;
+import com.libcode.plant.plant.tutor.entities.Tutor;
 
 @Entity
 @Table(name = "grupos")

@@ -1,8 +1,8 @@
-package com.libcode.crud.crud.planificacion.entities;
+package com.libcode.plant.plant.planificacion.entities;
 
 import jakarta.persistence.*;
-import com.libcode.crud.crud.tutor.entities.Tutor;
-import com.libcode.crud.crud.grupo.entities.Grupo;
+import com.libcode.plant.plant.tutor.entities.Tutor;
+import com.libcode.plant.plant.grupo.entities.Grupo;
 import java.time.LocalDateTime;
 
 @Entity

@@ -1,9 +1,9 @@
-package com.libcode.crud.crud.grupo.controllers;
+package com.libcode.plant.plant.grupo.controllers;
 
-import com.libcode.crud.crud.grupo.entities.Grupo;
-import com.libcode.crud.crud.tutor.entities.Tutor;
-import com.libcode.crud.crud.grupo.repository.GrupoRepository;
-import com.libcode.crud.crud.tutor.repository.TutorRepository;
+import com.libcode.plant.plant.grupo.entities.Grupo;
+import com.libcode.plant.plant.tutor.entities.Tutor;
+import com.libcode.plant.plant.grupo.repository.GrupoRepository;
+import com.libcode.plant.plant.tutor.repository.TutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class GrupoController {
     public String listarGrupos(Model model) {
         try {
             model.addAttribute("grupos", grupoRepository.findAll());
-            return "grupo/list-grupos";
+            return "Admin/grupo/list-grupos";
         } catch (Exception e) {
             model.addAttribute("error", "Error al cargar los grupos");
             return "error";
@@ -37,7 +37,7 @@ public class GrupoController {
     public String mostrarFormularioNuevo(Model model) {
         model.addAttribute("grupo", new Grupo());
         model.addAttribute("tutores", obtenerTutores());
-        return "grupo/form-grupos";
+        return "Admin/grupo/form-grupos";
     }
 
     @PostMapping("/guardar")
@@ -58,7 +58,7 @@ public class GrupoController {
                 .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado con ID: " + id));
             model.addAttribute("grupo", grupo);
             model.addAttribute("tutores", obtenerTutores());
-            return "grupo/form-grupos";
+            return "Admin/grupo/form-grupos";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/grupos";

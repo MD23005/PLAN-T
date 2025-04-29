@@ -1,12 +1,12 @@
-package com.libcode.crud.crud.tutor.controllers;
+package com.libcode.plant.plant.tutor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.libcode.crud.crud.tutor.entities.Tutor;
-import com.libcode.crud.crud.tutor.repository.TutorRepository;
+import com.libcode.plant.plant.tutor.entities.Tutor;
+import com.libcode.plant.plant.tutor.repository.TutorRepository;
 
 @Controller
 @RequestMapping("/tutores")
@@ -19,7 +19,7 @@ public class TutorController {
     public String listarTutores(Model model) {
         try {
             model.addAttribute("tutores", tutorRepository.findAll());
-            return "tutor/list-tutores";
+            return "Admin/tutor/list-tutores";
         } catch (Exception e) {
             model.addAttribute("error", "Error al cargar los tutores");
             return "error";
@@ -29,7 +29,7 @@ public class TutorController {
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
         model.addAttribute("tutor", new Tutor());
-        return "tutor/form-tutor";
+        return "Admin/tutor/form-tutor";
     }
     
     @PostMapping("/guardar")
@@ -49,7 +49,7 @@ public class TutorController {
             Tutor tutor = tutorRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor no encontrado con ID: " + id));
             model.addAttribute("tutor", tutor);
-            return "tutor/form-tutor";
+            return "Admin/tutor/form-tutor";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/tutores";

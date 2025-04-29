@@ -1,4 +1,4 @@
-package com.libcode.crud.crud.tutor.entities;
+package com.libcode.plant.plant.tutor.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

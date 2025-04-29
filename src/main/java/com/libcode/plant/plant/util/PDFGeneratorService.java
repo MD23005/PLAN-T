@@ -1,10 +1,10 @@
-package com.libcode.crud.crud.util;
+package com.libcode.plant.plant.util;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.libcode.crud.crud.planificacion.entities.Planificacion;
+import com.libcode.plant.plant.planificacion.entities.Planificacion;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;

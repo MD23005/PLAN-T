@@ -1,6 +1,6 @@
-package com.libcode.crud.crud.planificacion.controllers;
+package com.libcode.plant.plant.planificacion.controllers;
 
-import com.libcode.crud.crud.util.PDFGeneratorService;
+import com.libcode.plant.plant.util.PDFGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.libcode.crud.crud.planificacion.entities.Planificacion;
-import com.libcode.crud.crud.planificacion.repository.PlanificacionRepository;
-import com.libcode.crud.crud.tutor.repository.TutorRepository;
-import com.libcode.crud.crud.grupo.repository.GrupoRepository;
+import com.libcode.plant.plant.planificacion.entities.Planificacion;
+import com.libcode.plant.plant.planificacion.repository.PlanificacionRepository;
+import com.libcode.plant.plant.tutor.repository.TutorRepository;
+import com.libcode.plant.plant.grupo.repository.GrupoRepository;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
@@ -36,7 +36,7 @@ public class PlanificacionController {
     @GetMapping
     public String listarPlanificaciones(Model model) {
         model.addAttribute("planificaciones", planificacionRepository.findAll());
-        return "planificacion/list-planificaciones";
+        return "Admin/planificacion/list-planificaciones";
     }
     
     @GetMapping("/nuevo")
@@ -44,7 +44,7 @@ public class PlanificacionController {
         model.addAttribute("planificacion", new Planificacion());
         model.addAttribute("tutores", tutorRepository.findAll());
         model.addAttribute("grupos", grupoRepository.findAll()); 
-        return "planificacion/form-planificacion";
+        return "Admin/planificacion/form-planificacion";
     }
 
     @PostMapping("/guardar")
@@ -58,7 +58,7 @@ public class PlanificacionController {
         model.addAttribute("planificacion", planificacionRepository.findById(id).orElseThrow());
         model.addAttribute("tutores", tutorRepository.findAll());
         model.addAttribute("grupos", grupoRepository.findAll()); 
-        return "planificacion/form-planificacion";
+        return "Admin/planificacion/form-planificacion";
     }
     
     @GetMapping("/eliminar/{id}")
