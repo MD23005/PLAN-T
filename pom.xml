@@ -8,8 +8,8 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.libcode.crud</groupId>
-	<artifactId>crud</artifactId>
+	<groupId>com.libcode.plant</groupId>
+	<artifactId>PLAN_T</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>crud</name>
 	<description>Crud project for Spring Boot</description>

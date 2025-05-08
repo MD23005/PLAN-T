@@ -16,15 +16,17 @@ public class Admin {
 
     private String nombre;
     private String email;
+    private String password;
     
     //Constructor vacío
     public Admin() {
     }
 
     //constructor con parámetros
-    public Admin(String nombre, String email) {
+    public Admin(String nombre, String email, String password) {
         this.nombre = nombre;
         this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -49,6 +51,14 @@ public class Admin {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     

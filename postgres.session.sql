@@ -1,1 +1,1 @@
-SELECT *from grupos;
+SELECT * FROM admin;
