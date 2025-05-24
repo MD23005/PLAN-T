@@ -14,7 +14,7 @@ public class SecurityController {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index", "/login/**", "/css/**", "/js/**").permitAll() // 👈 Acceso libre
+                .requestMatchers("/", "/index", "/login/**", "/css/**", "/js/**","/img/**").permitAll() // 👈 Acceso libre
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
