@@ -19,8 +19,8 @@ public class SecurityController {
                 .requestMatchers("/", "/index", "/login/**", "/css/**", "/js/**","/img/**").permitAll() // 👈 Acceso libre
                 .anyRequest().authenticated()
             )
+            
              .oauth2Login(withDefaults());
-             
             /*.formLogin(form -> form
                 .loginPage("/login") // Opcional: tu vista personalizada
                 .permitAll()
