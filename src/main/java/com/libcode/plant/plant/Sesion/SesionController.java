@@ -12,7 +12,7 @@ import com.libcode.plant.plant.admin.entities.*;
 import com.libcode.plant.plant.tutor.entities.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
 
 
 
@@ -28,7 +28,7 @@ public class SesionController {
     }
 
     @PostMapping("/login/admin")
-    @PreAuthorize("hasAutority('SCOPE_admin')")
+    @PreAuthorize("hasAuthority('SCOPE_admin')")
     public String admin(@RequestParam String email, @RequestParam String password, Model modelo){
         Optional<Admin> admin = aRepository.findByEmailAndPassword(email, password);
         if(admin.isPresent()){
