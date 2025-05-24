@@ -48,6 +48,17 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<<<<<<< HEAD
+=======
+
+		<!-- Nueva dependencia para leer archivos .env -->
+         <dependency>
+             <groupId>io.github.cdimascio</groupId>
+             <artifactId>dotenv-java</artifactId>
+             <version>3.0.0</version>
+        </dependency>
+		
+>>>>>>> c54c1dc (Variables de entorno)
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
