@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Algo salió mal</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; text-align: center; padding: 50px; }
+        h1 { color: #d9534f; }
+    </style>
+</head>
+<body>
+    <h1>¡Oops!</h1>
+    <p th:text="'Código de error: ' + ${status}"></p>
+    <p th:text="${error}"></p>
+    <p th:text="${message}"></p>
+    <a href="/" style="color: blue;">Volver al inicio</a>
+</body>
+</html>
