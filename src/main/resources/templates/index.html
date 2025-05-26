@@ -16,7 +16,14 @@
     <!--Imagen de fondo-->
     <div class="bg-image"></div>
 
-    <div class="container text-center" id="main_cont">
+    <div sec:authorize="!isAuthenticated()">
+            <a class="btn btn-success" th:href="@{/oauth2/authorization/auth0}">Iniciar Sesión</a>
+    </div>
+
+
+
+    <div sec:authorize="isAuthenticated()">
+        <div class="container text-center" id="main_cont">
         <h1>Bienvenido al Sistema de Planificación de Tutorías</h1>
         <p class="lead">Organiza y gestiona las tutorías semanales de manera eficiente</p>
 
@@ -75,6 +82,7 @@
     </div>
     
     <div th:replace="fragments/footer :: footer"></div>
+    </div>
     
 </body>
 </html>
