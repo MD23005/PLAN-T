@@ -12,9 +12,9 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Establecer variables de entorno para la conexión a la base de datos
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://ep-calm-term-a4jnquak-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
-ENV SPRING_DATASOURCE_USERNAME=neondb_owner
-ENV SPRING_DATASOURCE_PASSWORD=npg_0u3PzNdSriKj
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://ep-proud-breeze-a8c1yack-pooler.eastus2.azure.neon.tech/dbPLANT?sslmode=require
+ENV SPRING_DATASOURCE_USERNAME=dbPLANT_owner
+ENV SPRING_DATASOURCE_PASSWORD=npg_mhEu2sY1RUVj
 ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
 ENV SPRING_JPA_SHOW_SQL=true
 ENV SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
