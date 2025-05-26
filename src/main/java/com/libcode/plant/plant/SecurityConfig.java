@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", true)
             );
 
-             /* .oauth2Login(oauth2 -> oauth2
+             /*.oauth2Login(oauth2 -> oauth2
                 .successHandler((request, response, authentication) -> {
                     var authorities = authentication.getAuthorities().toString();
 
