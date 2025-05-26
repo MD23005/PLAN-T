@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  java_app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-proud-breeze-a8c1yack-pooler.eastus2.azure.neon.tech/dbPLANT?sslmode=require
+      SPRING_DATASOURCE_USERNAME: dbPLANT_owner
+      SPRING_DATASOURCE_PASSWORD: npg_mhEu2sY1RUVj
+    networks:
+      - java_network
+
+
+volumes:
+  postgres-data:
+
+networks:
+  java_network:
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+</head>
+<body>
+    <div th:replace="fragments/header :: nav"></div>
+    
+    <div class="container">
+        <h1 class="my-4" th:text="${planificacion.id} ? 'Editar Planificación' : 'Nueva Planificación'"></h1>
+        
+        <form th:action="@{/planificaciones/guardar}" th:object="${planificacion}" method="post">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="mb-3">
+                <label for="grupo" class="form-label">Grupo</label>
+                <select class="form-select" id="grupo" th:field="*{grupo}" required>
+                    <option th:each="grupo : ${grupos}" 
+                            th:value="${grupo.id}" 
+                            th:text="${grupo.nombre}"></option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="tema" class="form-label">Tema</label>
+                <input type="text" class="form-control" id="tema" th:field="*{tema}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="modalidad" class="form-label">Modalidad</label>
+                <select class="form-select" id="modalidad" th:field="*{modalidad}" required>
+                    <option value="Presencial">Presencial</option>
+                    <option value="Virtual">Virtual</option>
+                    <option value="Híbrida">Híbrida</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="fechaHora" class="form-label">Fecha y Hora</label>
+                <input type="datetime-local" class="form-control" id="fechaHora" th:field="*{fechaHora}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="tutor" class="form-label">Tutor</label>
+                <select class="form-select" id="tutor" th:field="*{tutor}" required>
+                    <option th:each="tutor : ${tutores}" 
+                            th:value="${tutor.id}"
+                            th:text="${tutor.nombre}"></option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/planificaciones" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>  
