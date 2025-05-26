@@ -20,12 +20,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             
-            .oauth2Login(oauth2 -> oauth2
-                .loginPage("/oauth2/authorization/auth0")
-                .defaultSuccessUrl("/", true)
-            );
-
-             /*.oauth2Login(oauth2 -> oauth2
+             .oauth2Login(oauth2 -> oauth2
                 .successHandler((request, response, authentication) -> {
                     var authorities = authentication.getAuthorities().toString();
 
@@ -37,7 +32,7 @@ public class SecurityConfig {
                         response.sendRedirect("/");
                     }
                 })
-            );*/
+            );
 
         return http.build();
     }
