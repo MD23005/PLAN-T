@@ -11,16 +11,10 @@
 </head>
 <body class="d-flex flex-column min-vh-100" style="margin:0;">
 
-    <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{/oauth2/authorization/auth0}">Log In</a>
-    </div>
-    <div sec:authorize="isAuthenticated()">
-        <p>You are logged in!</p>
-    </div>
-    <!--<div th:replace="fragments/header :: nav"></div>-->
+    <div th:replace="fragments/header :: nav"></div>
     
     <!--Imagen de fondo-->
-    <!--<div class="bg-image"></div>
+    <div class="bg-image"></div>
 
     <div class="container text-center" id="main_cont">
         <h1>Bienvenido al Sistema de Planificación de Tutorías</h1>
@@ -45,9 +39,9 @@
                 </div>
             </form>                      
             
-        </fieldset>-->
+        </fieldset>
         
-        <!--<div class="row mt-5">
+        <div class="row mt-5">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
@@ -78,9 +72,9 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
     
-    <!--<div th:replace="fragments/footer :: footer"></div>-->
+    <div th:replace="fragments/footer :: footer"></div>
     
 </body>
 </html>
