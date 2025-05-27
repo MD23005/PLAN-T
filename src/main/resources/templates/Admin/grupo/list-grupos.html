@@ -5,7 +5,7 @@
 <body class="d-flex flex-column min-vh-100">
     <div th:replace="~{fragments/header :: nav}"></div>
 
-    <div class="container">
+    <div class="container" id="main_cont">
         
         <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
             <span th:text="${success}"></span>

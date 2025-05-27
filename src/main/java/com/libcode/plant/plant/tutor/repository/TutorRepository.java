@@ -9,4 +9,5 @@ import com.libcode.plant.plant.tutor.entities.Tutor;
 
 public interface TutorRepository extends JpaRepository<Tutor, Long> {
     Optional<Tutor> findByEmailAndPassword(String email, String password);
+    Optional<Tutor> findByEmail(String email);
 }
