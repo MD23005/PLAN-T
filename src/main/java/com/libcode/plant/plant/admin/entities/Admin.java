@@ -1,5 +1,6 @@
 package com.libcode.plant.plant.admin.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,19 +15,26 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String nombre;
+    @Column
     private String email;
+    @Column
     private String password;
+    @Column
+    private String rol;
     
     //Constructor vacío
     public Admin() {
     }
 
     //constructor con parámetros
-    public Admin(String nombre, String email, String password) {
+    public Admin(String nombre, String email, String password, String rol) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+        this.rol = rol;
+
     }
 
     public Long getId() {
@@ -59,6 +67,14 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     

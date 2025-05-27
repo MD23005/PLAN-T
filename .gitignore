@@ -33,3 +33,5 @@ build/
 .vscode/
 
 token.py
+
+src/main/resources/application.properties

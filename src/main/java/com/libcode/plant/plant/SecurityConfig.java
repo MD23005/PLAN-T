@@ -2,15 +2,26 @@ package com.libcode.plant.plant;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final CustomSuccessHandler successHandler;
+
+    public SecurityConfig(CustomSuccessHandler successHandler) {
+        this.successHandler = successHandler;
+        
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -20,18 +31,18 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             
-             .oauth2Login(oauth2 -> oauth2
-                .successHandler((request, response, authentication) -> {
-                    var authorities = authentication.getAuthorities().toString();
+          
+        // Habilita login OAuth2
+        .oauth2Login(oauth2 -> oauth2
+                .loginPage("/oauth2/authorization/auth0")
+                .userInfoEndpoint(userInfo -> userInfo
+                    .oidcUserService(new CustomOidcUserService()) // 👈 Agregás esto
+                    )
+                .successHandler(successHandler) // ✅ Usamos el handler
+            )
 
-                    if (authorities.contains("ROLE_admin")) {
-                        response.sendRedirect("/login/admin");
-                    } else if (authorities.contains("ROLE_tutor")) {
-                        response.sendRedirect("/login/tutor");
-                    } else {
-                        response.sendRedirect("/");
-                    }
-                })
+        .logout(logout -> logout
+                .logoutSuccessUrl("https://dev-qi8b5nrabbvawh0y.us.auth0.com/v2/logout?client_id=sbj7qQLLPsUFrNliyCs6ZmDZ8olbDP99&returnTo=http://localhost:8080/")
             );
 
         return http.build();
