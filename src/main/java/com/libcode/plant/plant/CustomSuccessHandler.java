@@ -33,6 +33,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
             String email = oidcUser.getEmail(); // Usamos el email como identificador
             System.out.println("🔎 Procesando usuario con email: " + email);
+            //String idTokenValue = oidcUser.getIdToken().getTokenValue();
+            //System.out.println("ID Token: " + idTokenValue);
 
             // Obtener el rol del claim personalizado
             role = (String) oidcUser.getIdToken().getClaim("https://dev-qi8b5nrabbvawh0y.us.auth0.com/claims/role");
