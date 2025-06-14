@@ -23,6 +23,13 @@ body {
     margin-top: auto;
 }
 
+.perfil_img{
+    height: 90px;
+    width: 90px;
+    position: absolute;
+    top:20px
+}
+
 /*----- Div que funciona como background para la imagen ------*/
 
 .bg-image{

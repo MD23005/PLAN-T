@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang:"es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,29 +9,34 @@
     <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" sec:authorize="isAuthenticated()">
         <div class="container">
-            <a class="navbar-brand" href="/"><img th:src="@{/img/logo.png}" width="150" height="100" alt="Planificacion"></a>
+            <a class="navbar-brand" sec:authorize="hasRole('ADMIN')" href="/Admin"><img th:src="@{/img/logo.png}" width="150" height="100" alt="Planificacion"></a>
+            <a class="navbar-brand" sec:authorize="hasRole('TUTOR')" href="/Tutor"><img th:src="@{/img/logo.png}" width="150" height="100" alt="Planificacion"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/tutores">Tutores</a>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link"   href="Admin/tutores">Tutores</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasRole('TUTOR')">
                         <a class="nav-link" href="/planificaciones">Planificaciones</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/grupos">Grupos</a>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link"  href="/grupos">Grupos</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                            <form th:action="@{/logout}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas cerrar sesión?');">
+
+                        <a th:href="Admin/perfil" sec:authorize="hasRole('ADMIN')"><img class="perfil_img" th:src="@{/img/perfil.png}" alt="Imagen del perfil"></a>
+                        <a th:href="Tutor/perfil" sec:authorize="hasRole('TUTOR')"><img class="perfil_img" th:src="@{/img/perfil.png}" alt="Imagen del perfil"></a>
+                            <!--<form th:action="@{/logout}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas cerrar sesión?');">
                                 <button type="submit" class="btn btn-danger">
                                     Cerrar Sesión
                                 </button>
-                            </form>
+                            </form>-->
+                            
                     </li>    
                 </ul>
             </div>

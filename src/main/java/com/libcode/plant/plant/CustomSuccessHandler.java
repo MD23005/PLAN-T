@@ -33,11 +33,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
             String email = oidcUser.getEmail(); // Usamos el email como identificador
             System.out.println("🔎 Procesando usuario con email: " + email);
-            //String idTokenValue = oidcUser.getIdToken().getTokenValue();
-            //System.out.println("ID Token: " + idTokenValue);
+            String idTokenValue = oidcUser.getIdToken().getTokenValue();
+            System.out.println("ID Token: " + idTokenValue);
 
             // Obtener el rol del claim personalizado
-            role = (String) oidcUser.getIdToken().getClaim("https://dev-qi8b5nrabbvawh0y.us.auth0.com/claims/role");
+            role = (String) oidcUser.getIdToken().getClaim("https://localhost:8080.com/claims/role");
 
             if (role != null) {
                 System.out.println("✅ Rol encontrado en metadata: " + role);
@@ -55,14 +55,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     private String determineRedirectUrl(String role) {
         if (role == null || role.trim().isEmpty()) {
-            return "/"; // Redirigir a página por defecto si no tiene rol
+            return "error"; // Redirigir a página por defecto si no tiene rol
         }
 
         // Redirigir según el rol
         return switch (role.trim().toLowerCase()) {
             case "admin" -> "/Admin";
-            case "tutor" -> "/tutor";
-            default -> "/"; // Redirigir a página por defecto si el rol no es reconocido
+            case "tutor" -> "/Tutor";
+            default -> "/Tutor"; // Redirigir a página por defecto si el rol no es reconocido
         };
     }
 }

@@ -36,7 +36,7 @@ public class PlanificacionController {
     @GetMapping
     public String listarPlanificaciones(Model model) {
         model.addAttribute("planificaciones", planificacionRepository.findAll());
-        return "Admin/planificacion/list-planificaciones";
+        return "Tutor/planificacion/list-planificaciones";
     }
     
     @GetMapping("/nuevo")
@@ -44,7 +44,7 @@ public class PlanificacionController {
         model.addAttribute("planificacion", new Planificacion());
         model.addAttribute("tutores", tutorRepository.findAll());
         model.addAttribute("grupos", grupoRepository.findAll()); 
-        return "Admin/planificacion/form-planificacion";
+        return "Tutor/planificacion/form-planificacion";
     }
 
     @PostMapping("/guardar")
@@ -58,7 +58,7 @@ public class PlanificacionController {
         model.addAttribute("planificacion", planificacionRepository.findById(id).orElseThrow());
         model.addAttribute("tutores", tutorRepository.findAll());
         model.addAttribute("grupos", grupoRepository.findAll()); 
-        return "Admin/planificacion/form-planificacion";
+        return "Tutor/planificacion/form-planificacion";
     }
     
     @GetMapping("/eliminar/{id}")

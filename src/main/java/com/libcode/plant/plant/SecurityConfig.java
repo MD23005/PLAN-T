@@ -36,7 +36,7 @@ public class SecurityConfig {
         .oauth2Login(oauth2 -> oauth2
                 .loginPage("/oauth2/authorization/auth0")
                 .userInfoEndpoint(userInfo -> userInfo
-                    .oidcUserService(new CustomOidcUserService()) // 👈 Agregás esto
+                    .oidcUserService(new CustomOidcUserService()) 
                     )
                 .successHandler(successHandler) // ✅ Usamos el handler
             )
