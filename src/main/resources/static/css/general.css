@@ -26,9 +26,17 @@ body {
 .perfil_img{
     height: 90px;
     width: 90px;
-    position: absolute;
-    top:20px
+    position: relative;
+    top: auto;
 }
+.container{
+    background-color: blueviolet;
+    position: relative;
+    left: -8%;
+    right: -2%;
+}
+
+
 
 /*----- Div que funciona como background para la imagen ------*/
 

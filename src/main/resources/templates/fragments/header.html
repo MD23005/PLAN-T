@@ -29,8 +29,8 @@
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
 
-                        <a th:href="Admin/perfil" sec:authorize="hasRole('ADMIN')"><img class="perfil_img" th:src="@{/img/perfil.png}" alt="Imagen del perfil"></a>
-                        <a th:href="Tutor/perfil" sec:authorize="hasRole('TUTOR')"><img class="perfil_img" th:src="@{/img/perfil.png}" alt="Imagen del perfil"></a>
+                        <a href="Admin/perfil" sec:authorize="hasRole('ADMIN')"><img class="perfil_img" th:src="@{/img/perfil.png}" alt="Imagen del perfil"></a>
+                        <a href="Tutor/perfil" sec:authorize="hasRole('TUTOR')"><img class="perfil_img" th:src="@{/img/perfil.png}" alt="Imagen del perfil"></a>
                             <!--<form th:action="@{/logout}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas cerrar sesión?');">
                                 <button type="submit" class="btn btn-danger">
                                     Cerrar Sesión

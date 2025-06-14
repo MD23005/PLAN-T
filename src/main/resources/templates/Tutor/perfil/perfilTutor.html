@@ -8,6 +8,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <div class="cont_authenticated" sec:authorize="isAuthenticated() and hasRole('TUTOR')">
         <div th:replace="fragments/header :: nav"></div>
         <h1>Hola desde el perfil del tutor</h1>
+
+        <h2>Bienvenido, <span sec:authentication="principal.attributes['name']"></span></h2>
+        <p>Email: <span sec:authentication="principal.attributes['email']"></span></p>
     </div>
 </body>
 </html>

@@ -116,4 +116,5 @@ public class CustomOidcUserService extends OidcUserService {
         System.out.println("❌ No se encontró rol en ninguna ubicación");
         return null;
     }
+
 }
