@@ -20,7 +20,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <span sec:authentication="principal.attributes['name']"></span>
                 <h1>Correo electronico:</h1>
                 <span sec:authentication="principal.attributes['email']"></span>
+
+                <div class="logout_button">
+                    <form th:action="@{/logout}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas cerrar sesión?');">
+                    <button type="submit" class="btn btn-danger">
+                        Cerrar Sesión
+                    </button>
+                </form>
+                </div>
             </div>
+
         </div>    
     </div>
 </body>

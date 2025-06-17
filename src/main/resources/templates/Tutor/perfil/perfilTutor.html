@@ -5,12 +5,20 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="./fragments/header :: head">
 </head>
 <body>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
     <div class="cont_authenticated" sec:authorize="isAuthenticated() and hasRole('TUTOR')">
         <div th:replace="fragments/header :: nav"></div>
-        <h1>Hola desde el perfil del tutor</h1>
-
-        <h2>Bienvenido, <span sec:authentication="principal.attributes['name']"></span></h2>
-        <p>Email: <span sec:authentication="principal.attributes['email']"></span></p>
+        <div class="data_container">
+            <div class="img_container">
+                <img th:src="@{/img/perfil.png}" alt="Perfil">
+            </div>
+            
+        <div class="datos_admin">
+            <h1>Nombres:</h1>
+            <span sec:authentication="principal.attributes['name']"></span>
+            <h1>Correo electronico:</h1>
+            <span sec:authentication="principal.attributes['email']"></span>
+        </div>
     </div>
 </body>
 </html>
