@@ -3,15 +3,22 @@
 xmlns:th="http://www.thymeleaf.org" 
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="./fragments/header :: head">
-    <link rel="stylesheet" th:href="@{/css/perfil.css}">
 </head>
 <body>
+
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+
     <div class="cont_authenticated" sec:authorize="isAuthenticated() and hasRole('ADMIN')">
         <div th:replace="fragments/header :: nav"></div>
-        <div class="img_container">
-            <img th:src="@{/img/perfil}" alt="Perfil">
-        </div>
-        
+            <div class="data_container">
+                <div class="img_container">
+                <img th:src="@{/img/perfil.png}" alt="Perfil">
+            </div>
+            
+            <div class="datos_admin">
+                <h1>Nombres</h1>
+            </div>
+        </div>    
     </div>
 </body>
 </html>

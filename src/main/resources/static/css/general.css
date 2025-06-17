@@ -5,10 +5,12 @@ body {
     flex-direction: column;
     margin: 0;
     height: 100%;
+    max-height: 100%;
 }
 
 .navbar {
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    background-color: #CC6F6F;
 }
 
 #main_cont {
@@ -30,10 +32,19 @@ body {
     top: auto;
 }
 .container{
-    background-color: blueviolet;
     position: relative;
-    left: -8%;
-    right: -2%;
+    max-width: 100%;
+}
+
+li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+}
+
+li > a:hover{
+    text-decoration: underline #fff;
 }
 
 

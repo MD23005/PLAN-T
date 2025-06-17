@@ -1,4 +1,24 @@
+.cont_authenticated{
+    height: 100vh;
+}
+.data_container{
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+}
 .img_container{
-    background-color: rgb(251, 147, 255);
-    
+    background-color: #FFBDBD;
+    width: 300px;
+    height: 80.1%;
+    display: flex;
+    justify-content: center;
+}
+
+.img_container > img{
+    width: 210px;
+    height: 210px;
+    margin-top: 25px;
+}
+.datos_admin{
+    height: 80.1%;
 }
