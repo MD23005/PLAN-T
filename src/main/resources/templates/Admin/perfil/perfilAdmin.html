@@ -16,7 +16,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             </div>
             
             <div class="datos_admin">
-                <h1>Nombres</h1>
+                <h1>Nombres:</h1>
+                <span sec:authentication="principal.attributes['name']"></span>
+                <h1>Correo electronico:</h1>
+                <span sec:authentication="principal.attributes['email']"></span>
             </div>
         </div>    
     </div>
