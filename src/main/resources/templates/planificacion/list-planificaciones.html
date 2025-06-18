@@ -61,8 +61,17 @@
                     <td th:text="${#temporals.format(planificacion.fechaHora, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${planificacion.tutor.nombre}"></td>
                     <td>
-                        <a th:href="@{/planificaciones/editar/{id}(id=${planificacion.id})}" class="btn btn-primary btn-sm">Editar</a>
-                        <a th:href="@{/planificaciones/eliminar/{id}(id=${planificacion.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+                        <div class="d-flex gap-2">
+                            <a th:href="@{/planificaciones/editar/{id}(id=${planificacion.id})}" 
+                               class="btn btn-primary btn-sm text-white fw-bold px-3 py-1">
+                                Editar
+                            </a>
+                            <a th:href="@{/planificaciones/eliminar/{id}(id=${planificacion.id})}" 
+                               class="btn btn-danger btn-sm text-white fw-bold px-3 py-1"
+                               onclick="return confirm('¿Estás seguro de eliminar esta planificación?')">
+                                Eliminar
+                            </a>
+                        </div>
                     </td>
                 </tr>
             </tbody>

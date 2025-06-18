@@ -21,6 +21,16 @@ public class Planificacion {
     @Column(nullable = false)
     private String modalidad;
 
+    @Column(name = "recurrente")
+    private Boolean recurrente = false;
+
+    @Column(name = "semanas")
+    private Integer semanas;
+
+    @Column(name = "palabra_clave")
+    private String palabraClave;
+
+
     @ManyToOne
     @JoinColumn(name = "grupo_id", nullable = false)
     private Grupo grupo;
@@ -89,6 +99,29 @@ public class Planificacion {
     
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
+    }
+    public Boolean getRecurrente() { return recurrente; 
+    
+    }
+
+    public void setRecurrente(Boolean recurrente) { this.recurrente = recurrente; 
+    
+    }
+
+    public Integer getSemanas() { return semanas; 
+    
+    }
+
+    public void setSemanas(Integer semanas) { this.semanas = semanas; 
+    
+    }
+
+    public String getPalabraClave() { return palabraClave; 
+    
+    }
+
+    public void setPalabraClave(String palabraClave) { this.palabraClave = palabraClave; 
+    
     }
     
     // Métodos adicionales

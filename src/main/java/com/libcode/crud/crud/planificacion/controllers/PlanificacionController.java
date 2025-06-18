@@ -56,11 +56,29 @@ public class PlanificacionController {
         return "planificacion/form-planificacion";
     }
     
-    @PostMapping("/guardar")
-    public String guardarPlanificacion(@ModelAttribute Planificacion planificacion) {
+   @PostMapping("/guardar")
+   public String guardarPlanificacion(@ModelAttribute Planificacion planificacion) {
+    if (Boolean.TRUE.equals(planificacion.getRecurrente()) && planificacion.getSemanas() != null) {
+        List<Planificacion> sesiones = new ArrayList<>();
+        for (int i = 0; i < planificacion.getSemanas(); i++) {
+            Planificacion copia = new Planificacion();
+            copia.setGrupo(planificacion.getGrupo());
+            copia.setTema(planificacion.getTema());
+            copia.setModalidad(planificacion.getModalidad());
+            copia.setTutor(planificacion.getTutor());
+            copia.setRecurrente(true);
+            copia.setSemanas(planificacion.getSemanas());
+            copia.setPalabraClave(planificacion.getPalabraClave());
+            copia.setFechaHora(planificacion.getFechaHora().plusWeeks(i));
+            sesiones.add(copia);
+        }
+        planificacionRepository.saveAll(sesiones);
+    } else {
         planificacionRepository.save(planificacion);
-        return "redirect:/planificaciones";
     }
+    return "redirect:/planificaciones";
+    }
+
     
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
