@@ -1,30 +1,34 @@
 package com.libcode.plant.plant.tutor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.libcode.plant.plant.admin.entities.Admin;
 import com.libcode.plant.plant.tutor.entities.Tutor;
 import com.libcode.plant.plant.tutor.repository.TutorRepository;
 
 @Controller
-@RequestMapping("/tutores")
+@RequestMapping("/Tutor")
 public class TutorController {
     
     @Autowired
     private TutorRepository tutorRepository;
     
     @GetMapping
-    public String listarTutores(Model model) {
+    public String indexTutor(){
         try {
-            model.addAttribute("tutores", tutorRepository.findAll());
-            return "Admin/tutor/list-tutores";
+            return "Tutor/indexTutor";
         } catch (Exception e) {
-            model.addAttribute("error", "Error al cargar los tutores");
             return "error";
         }
     }
+
+    
     
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
@@ -66,4 +70,28 @@ public class TutorController {
         }
         return "redirect:/tutores";
     }
-}     
+
+    @GetMapping("/perfil")
+    public String perfilAdmin(@AuthenticationPrincipal OidcUser customUser, 
+                         Model modelo, 
+                         RedirectAttributes redirectAttributes){
+        try {
+            if (customUser == null) {
+                redirectAttributes.addFlashAttribute("error", "Usuario no autenticado");
+                return "redirect:/Tutor";
+            }
+            
+            String email = customUser.getEmail(); // o customUser.getAttribute("email")
+            
+            Tutor tutor = tutorRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor no encontrado con email: " + email));
+            
+            modelo.addAttribute("tutor", tutor);
+            return "Tutor/perfil/perfilTutor";
+        
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/Tutor";
+        }
+    }
+}   

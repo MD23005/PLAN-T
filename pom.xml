@@ -104,6 +104,7 @@
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
     	</dependency>
 
+		<!--Dependencias de thymeleaf-->
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
@@ -113,8 +114,28 @@
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
+
+		<!-- Para trabajar con Excel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.3</version>
+		</dependency>
+
+        <!-- Para Bootstrap Icons -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bootstrap-icons</artifactId>
+            <version>1.11.1</version>
+        </dependency>
 	</dependencies>
 
+		
 	<build>
 		<plugins>
 			<plugin>

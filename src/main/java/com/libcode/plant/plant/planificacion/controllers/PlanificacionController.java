@@ -1,6 +1,9 @@
 package com.libcode.plant.plant.planificacion.controllers;
 
 import com.libcode.plant.plant.util.PDFGeneratorService;
+
+import groovyjarjarpicocli.CommandLine.Help.TextTable.Cell;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -9,13 +12,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.libcode.plant.plant.planificacion.entities.Planificacion;
 import com.libcode.plant.plant.planificacion.repository.PlanificacionRepository;
+import com.libcode.plant.plant.tutor.entities.Tutor;
 import com.libcode.plant.plant.tutor.repository.TutorRepository;
+import com.libcode.plant.plant.grupo.entities.Grupo;
 import com.libcode.plant.plant.grupo.repository.GrupoRepository;
 
 import java.io.ByteArrayInputStream;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/planificaciones")
@@ -36,7 +51,7 @@ public class PlanificacionController {
     @GetMapping
     public String listarPlanificaciones(Model model) {
         model.addAttribute("planificaciones", planificacionRepository.findAll());
-        return "Admin/planificacion/list-planificaciones";
+        return "Tutor/planificacion/list-planificaciones";
     }
     
     @GetMapping("/nuevo")
@@ -44,12 +59,28 @@ public class PlanificacionController {
         model.addAttribute("planificacion", new Planificacion());
         model.addAttribute("tutores", tutorRepository.findAll());
         model.addAttribute("grupos", grupoRepository.findAll()); 
-        return "Admin/planificacion/form-planificacion";
+        return "Tutor/planificacion/form-planificacion";
     }
 
     @PostMapping("/guardar")
     public String guardarPlanificacion(@ModelAttribute Planificacion planificacion) {
-        planificacionRepository.save(planificacion);
+        if (Boolean.TRUE.equals(planificacion.getRecurrente()) && planificacion.getSemanas() != null) {
+            List<Planificacion> sesiones = new ArrayList<>();
+            for (int i = 0; i < planificacion.getSemanas(); i++) {
+                Planificacion copia = new Planificacion();
+                copia.setGrupo(planificacion.getGrupo());
+                copia.setTema(planificacion.getTema());
+                copia.setModalidad(planificacion.getModalidad());
+                copia.setTutor(planificacion.getTutor());
+                copia.setRecurrente(true);
+                copia.setSemanas(planificacion.getSemanas());
+                copia.setFechaHora(planificacion.getFechaHora().plusWeeks(i));
+                sesiones.add(copia);
+            }
+        planificacionRepository.saveAll(sesiones);
+        } else {
+            planificacionRepository.save(planificacion);
+        }
         return "redirect:/planificaciones";
     }
     
@@ -58,7 +89,7 @@ public class PlanificacionController {
         model.addAttribute("planificacion", planificacionRepository.findById(id).orElseThrow());
         model.addAttribute("tutores", tutorRepository.findAll());
         model.addAttribute("grupos", grupoRepository.findAll()); 
-        return "Admin/planificacion/form-planificacion";
+        return "Tutor/planificacion/form-planificacion";
     }
     
     @GetMapping("/eliminar/{id}")
@@ -81,5 +112,118 @@ public class PlanificacionController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(bis));
+    }
+
+    @GetMapping("/carga-masiva")
+    public String mostrarFormularioCargaMasiva(Model model) {
+        return "Tutor/planificacion/carga-masiva";
+    }
+
+    @PostMapping("/procesar-carga-masiva")
+    public String procesarCargaMasiva(@RequestParam("archivo") MultipartFile archivo, Model model) {
+        if (archivo.isEmpty()) {
+            model.addAttribute("error", "Por favor seleccione un archivo Excel");
+            return "planificacion/carga-masiva";
+        }
+
+        try (Workbook workbook = new XSSFWorkbook(archivo.getInputStream())) {
+            Sheet sheet = workbook.getSheetAt(0);
+            List<Planificacion> planificaciones = new ArrayList<>();
+
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                final int currentRow = i;
+                Row row = sheet.getRow(currentRow);
+                if (row == null) continue;
+
+                Planificacion planificacion = new Planificacion();
+                
+                String grupoIdStr = getCellStringValue(row.getCell(0), "ID Grupo", currentRow);
+                Long grupoId = Long.parseLong(grupoIdStr);
+                Grupo grupo = grupoRepository.findById(grupoId)
+                    .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado (Fila " + currentRow + ")"));
+                planificacion.setGrupo(grupo);
+                
+                planificacion.setFechaHora(parseDateTime(
+                    getCellStringValue(row.getCell(1), "Fecha", currentRow),
+                    getCellStringValue(row.getCell(2), "Hora", currentRow)
+                ));
+                planificacion.setTema(getCellStringValue(row.getCell(3), "Tema", currentRow));
+                planificacion.setModalidad(getCellStringValue(row.getCell(4), "Modalidad", currentRow));
+                
+                String tutorIdStr = getCellStringValue(row.getCell(5), "ID Tutor", currentRow);
+                Long tutorId = Long.parseLong(tutorIdStr);
+                Tutor tutor = tutorRepository.findById(tutorId)
+                    .orElseThrow(() -> new IllegalArgumentException("Tutor no encontrado (Fila " + currentRow + ")"));
+                planificacion.setTutor(tutor);
+                
+                planificaciones.add(planificacion);
+            }
+
+            model.addAttribute("planificaciones", planificaciones);
+            model.addAttribute("confirmacion", true);
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar: " + e.getMessage());
+        }
+
+        return "Tutor/planificacion/carga-masiva";
+    }
+
+     @PostMapping("/confirmar-carga-masiva")
+    public String confirmarCargaMasiva(
+        @RequestParam("gruposIds[]") Long[] gruposIds,
+        @RequestParam("fechasHoras[]") String[] fechasHoras,
+        @RequestParam("temas[]") String[] temas,
+        @RequestParam("modalidades[]") String[] modalidades,
+        @RequestParam("tutoresIds[]") Long[] tutoresIds,
+        RedirectAttributes redirectAttributes) {
+
+        List<Planificacion> planificaciones = new ArrayList<>();
+        
+        IntStream.range(0, gruposIds.length).forEach(i -> {
+            Planificacion planificacion = new Planificacion();
+            
+            Grupo grupo = grupoRepository.findById(gruposIds[i])
+                .orElseThrow(() -> new IllegalArgumentException("Grupo no encontrado para el ID: " + gruposIds[i]));
+            planificacion.setGrupo(grupo);
+            
+            planificacion.setFechaHora(LocalDateTime.parse(fechasHoras[i]));
+            planificacion.setTema(temas[i]);
+            planificacion.setModalidad(modalidades[i]);
+            
+            Tutor tutor = tutorRepository.findById(tutoresIds[i])
+                .orElseThrow(() -> new IllegalArgumentException("Tutor no encontrado para el ID: " + tutoresIds[i]));
+            planificacion.setTutor(tutor);
+            
+            planificaciones.add(planificacion);
+        });
+
+        planificacionRepository.saveAll(planificaciones);
+        redirectAttributes.addFlashAttribute("mensaje", 
+            "¡" + planificaciones.size() + " planificaciones importadas correctamente!");
+        return "redirect:/planificaciones";
+    }
+
+    private String getCellStringValue(org.apache.poi.ss.usermodel.Cell cell, String campo, int fila) {
+        if (cell == null) {
+            throw new IllegalArgumentException(campo + " no puede estar vacío (Fila " + fila + ")");
+        }
+        switch (cell.getCellType()) {
+            case STRING: return cell.getStringCellValue().trim();
+            case NUMERIC: 
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getLocalDateTimeCellValue().toString();
+                }
+                return String.valueOf((long) cell.getNumericCellValue());
+            default: throw new IllegalArgumentException(
+                "Formato inválido para " + campo + " (Fila " + fila + ")");
+        }
+    }
+
+    private LocalDateTime parseDateTime(String fecha, String hora) {
+        try {
+            return LocalDateTime.parse(fecha + "T" + hora);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Formato de fecha/hora inválido. Use YYYY-MM-DD y HH:mm");
+        }
     }
 }   

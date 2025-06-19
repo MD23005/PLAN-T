@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class CustomOidcUserService extends OidcUserService {
 
     // Usar la misma clave que en tu SuccessHandler
-    private static final String ROLE_CLAIM_KEY = "https://dev-qi8b5nrabbvawh0y.us.auth0.com/role";
+    private static final String ROLE_CLAIM_KEY = "https://plan-t-rol7.onrender.com/claims/role";
 
     @Override
     public OidcUser loadUser(OidcUserRequest userRequest) {
@@ -115,4 +115,5 @@ public class CustomOidcUserService extends OidcUserService {
         System.out.println("❌ No se encontró rol en ninguna ubicación");
         return null;
     }
+
 }
