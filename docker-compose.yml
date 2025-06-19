@@ -6,9 +6,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: postgresql://ep-calm-term-a4jnquak-pooler.us-east-1.aws.neon.tech:5432/neondb
-      SPRING_DATASOURCE_USERNAME: neondb_owner
-      SPRING_DATASOURCE_PASSWORD: npg_0u3PzNdSriKj
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-proud-breeze-a8c1yack-pooler.eastus2.azure.neon.tech/dbPLANT?sslmode=require
+      SPRING_DATASOURCE_USERNAME: dbPLANT_owner
+      SPRING_DATASOURCE_PASSWORD: npg_mhEu2sY1RUVj
     networks:
       - java_network
 

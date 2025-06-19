@@ -47,7 +47,6 @@ public class CustomOidcUserService extends OidcUserService {
             System.out.println("✅ Rol extraído en OidcUserService: " + role);
             
             // Asegurar que el rol esté disponible en los claims
-            // Tu SuccessHandler buscará aquí
             claims.put(ROLE_CLAIM_KEY, role);
             claims.put("role", role); // También poner la versión simplificada
         } else {
