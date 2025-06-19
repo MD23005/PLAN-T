@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.libcode.plant.plant.CustomOidcUser;
-
 
 import com.libcode.plant.plant.admin.entities.Admin;
 import com.libcode.plant.plant.admin.repository.AdminRepository;

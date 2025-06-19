@@ -15,3 +15,8 @@ INSERT INTO admin (email,nombre,password,rol)
 VALUES
   ('orci.sem@hotmail.com','Yen Parrish','X5I9VEKI5QJX9YB','admin'),
   ('molestie.in@aol.com','Larissa Delgado','O5X6UVLH1GIL7JD','admin');
+
+INSERT INTO public.grupos (tutor_id,nombre) VALUES
+	 (1,'Grupo A'),
+	 (1,'Grupo B'),
+	 (2,'Grupo C');
