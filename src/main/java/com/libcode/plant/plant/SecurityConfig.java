@@ -36,13 +36,14 @@ public class SecurityConfig {
         .oauth2Login(oauth2 -> oauth2
                 .loginPage("/oauth2/authorization/auth0")
                 .userInfoEndpoint(userInfo -> userInfo
+                    .oidcUserService(new CustomOidcUserService()) // 
                     .oidcUserService(new CustomOidcUserService()) 
                     )
                 .successHandler(successHandler) // ✅ Usamos el handler
             )
 
         .logout(logout -> logout
-                .logoutSuccessUrl("https://dev-qi8b5nrabbvawh0y.us.auth0.com/v2/logout?client_id=sbj7qQLLPsUFrNliyCs6ZmDZ8olbDP99&returnTo=https://plan-t-rol7.onrender.com/")
+                .logoutSuccessUrl("https://dev-qi8b5nrabbvawh0y.us.auth0.com/v2/logout?client_id=sbj7qQLLPsUFrNliyCs6ZmDZ8olbDP99&returnTo=http://localhost:8080/")
             );
 
         return http.build();

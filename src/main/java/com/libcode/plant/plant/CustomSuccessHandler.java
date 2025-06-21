@@ -37,7 +37,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             System.out.println("ID Token: " + idTokenValue);
 
             // Obtener el rol del claim personalizado
-            role = (String) oidcUser.getIdToken().getClaim("https://plan-t-rol7.onrender.com/claims/role");
+            role = (String) oidcUser.getIdToken().getClaim("http://localhost:8080/claims/role");
 
             if (role != null) {
                 System.out.println("✅ Rol encontrado en metadata: " + role);

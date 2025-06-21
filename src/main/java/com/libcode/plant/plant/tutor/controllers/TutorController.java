@@ -44,7 +44,7 @@ public class TutorController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error al guardar el tutor");
         }
-        return "redirect:/tutores";
+        return "redirect:/Admin/tutores";
     }
     
     @GetMapping("/editar/{id}")
@@ -56,7 +56,7 @@ public class TutorController {
             return "Admin/tutor/form-tutor";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/tutores";
+            return "redirect:/Admin/tutores";
         }
     }
     
@@ -68,7 +68,7 @@ public class TutorController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se puede eliminar el tutor porque está siendo utilizado");
         }
-        return "redirect:/tutores";
+        return "redirect:/Admin/tutores";
     }
 
     @GetMapping("/perfil")
