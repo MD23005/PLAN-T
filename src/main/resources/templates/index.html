@@ -22,40 +22,12 @@
 
 
     <div sec:authorize="isAuthenticated()" class="general_container">
-        <div class="container text-center" id="main_cont">
-        <h1>Bienvenido al Sistema de Planificación de Tutorías</h1>
-        <p class="lead">Organiza y gestiona las tutorías semanales de manera eficiente</p>
-     
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Gestión de Tutores</h5>
-                        <p class="card-text">Administra la información de los tutores</p>
-                        <a href="/tutores" class="btn btn-primary">Ir a Tutores</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Planificación Semanal</h5>
-                        <p class="card-text">Organiza las tutorías por grupo, tema y modalidad</p>
-                        <a href="/planificaciones" class="btn btn-primary">Ir a Planificaciones</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Gestión de Grupos</h5>
-                        <p class="card-text">Administra los grupos asignados a cada tutor</p>
-                        <a href="/grupos" class="btn btn-primary">Ir a Grupos</a>
-                    </div>
-                </div>
-            </div>
+        <div class="admin_link" sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/Admin}" class="btn btn-success">Redirijir al index</a>
         </div>
-    </div>
+        <div class="tutor_link" sec:authorize="hasRole('TUTOR')">
+            <a th:href="@{/Tutor}" class="btn btn-success">Redirijir al index</a>
+        </div>
     
     <div th:replace="fragments/footer :: footer"></div>
     </div>

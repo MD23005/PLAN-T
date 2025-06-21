@@ -42,7 +42,7 @@ public class SecurityConfig {
             )
 
         .logout(logout -> logout
-                .logoutSuccessUrl("https://dev-qi8b5nrabbvawh0y.us.auth0.com/v2/logout?client_id=sbj7qQLLPsUFrNliyCs6ZmDZ8olbDP99&returnTo=https://plan-t-rol7.onrender.com/")
+                .logoutSuccessUrl("https://dev-qi8b5nrabbvawh0y.us.auth0.com/v2/logout?client_id=sbj7qQLLPsUFrNliyCs6ZmDZ8olbDP99&returnTo=http://localhost:8080/")
             );
 
         return http.build();

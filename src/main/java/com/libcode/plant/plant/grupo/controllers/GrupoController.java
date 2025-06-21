@@ -48,7 +48,7 @@ public class GrupoController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error al guardar el grupo");
         }
-        return "redirect:/grupos";
+        return "redirect:/Admin/grupos";
     }
 
     @GetMapping("/editar/{id}")
@@ -61,7 +61,7 @@ public class GrupoController {
             return "Admin/grupo/form-grupos";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/grupos";
+            return "redirect:/Admin/grupos";
         }
     }
 
@@ -73,7 +73,7 @@ public class GrupoController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se puede eliminar el grupo porque está siendo utilizado");
         }
-        return "redirect:/grupos";
+        return "redirect:/Admin/grupos";
     }
 
     private List<Tutor> obtenerTutores() {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="./fragments/header :: head">
 </head>
 
@@ -8,7 +9,12 @@
 </header>
 
 <body>
-    <h1>Hola</h1>
     
+    <div class="auth_cont" sec:authorize="isAuthenticated() and hasRole('TUTOR')">
+        <div class="welcome_msg text-center">
+            <h1 class="display-1 fw-bold">Bienvenid@</h1>
+            <span class="name display-4" sec:authentication="principal.attributes['name']"></span>
+        </div>
+    </div>
 </body>
 </html>

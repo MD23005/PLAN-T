@@ -9,6 +9,8 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -49,9 +52,26 @@ public class PlanificacionController {
     private PDFGeneratorService pdfGeneratorService;
     
     @GetMapping
-    public String listarPlanificaciones(Model model) {
-        model.addAttribute("planificaciones", planificacionRepository.findAll());
-        return "Tutor/planificacion/list-planificaciones";
+    public String listarPlanificaciones(Model model, Authentication authentication) {
+        // Convertir el principal a OidcUser
+        OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
+
+        // Obtener el correo del usuario autenticado
+        String email = oidcUser.getEmail();
+
+        // Buscar al tutor por su correo
+        Optional<Tutor> tutor = tutorRepository.findByEmail(email);
+
+        if (tutor == null) {
+            // Redirigir o mostrar error si no existe tutor asociado
+            return "redirect:/error";
+        }
+
+        // Buscar solo las planificaciones asociadas a ese tutor
+        List<Planificacion> planificaciones = planificacionRepository.findByTutor(tutor);
+
+        model.addAttribute("planificaciones", planificaciones);
+        return "Tutor/planificacion/list-planificaciones"; // o el nombre correcto de tu vista
     }
     
     @GetMapping("/nuevo")

@@ -8,23 +8,32 @@
     <div class="container">
         <h1 class="my-4" th:text="${tutor.id != null} ? 'Editar Tutor' : 'Nuevo Tutor'"></h1>
         
-        <form th:action="@{/tutores/guardar}" th:object="${tutor}" method="post">
+        <form th:action="@{/Tutor/guardar}" th:object="${tutor}" method="post">
             <input type="hidden" th:field="*{id}">
             
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
+                <label for="nombre" class="form-label">Nombre:</label>
                 <input type="text" class="form-control" id="nombre" 
                        th:field="*{nombre}" required>
             </div>
             
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control" id="email" 
                        th:field="*{email}" required>
             </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña:</label>
+                <input type="password" class="form-control" id="password" 
+                       th:field="*{password}" required>
+
+                <input type="hidden" class="form-control" id="rol" 
+                name="rol" value="tutor">
+            </div>
             
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a th:href="@{/tutores}" class="btn btn-secondary">Cancelar</a>
+            <a th:href="@{/Admin/tutores}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
     
