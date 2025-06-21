@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class CustomOidcUserService extends OidcUserService {
 
     // Usar la misma clave que en tu SuccessHandler
-    private static final String ROLE_CLAIM_KEY = "http://localhost:8080/claims/role";
+    private static final String ROLE_CLAIM_KEY = "https://plan-t-rol7.onrender.com/claims/role";
 
     @Override
     public OidcUser loadUser(OidcUserRequest userRequest) {
